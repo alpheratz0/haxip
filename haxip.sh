@@ -52,7 +52,7 @@ function main() {
 		$OPT_COPY && printf "%s" "$ip" | xclip -i -sel clipboard
 	done
 
-	[ -f "$captured_data_location" ] && rm -rf "$captured_data_location"
+	[ -f "$captured_data_location" ] && rm "$captured_data_location"
 }
 
 function show_help() {
@@ -73,7 +73,7 @@ function err() {
 }
 
 function hinterrupt() {
-	[ -f "$captured_data_location" ] && rm -rf "$captured_data_location"
+	[ -f "$captured_data_location" ] && rm "$captured_data_location"
 	exit 1
 }
 
