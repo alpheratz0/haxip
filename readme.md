@@ -9,6 +9,7 @@ to use haxip you need the following programs installed
 - tshark
 - xclip
 - curl
+- jq
 
 ## install
 
