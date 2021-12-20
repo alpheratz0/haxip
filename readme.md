@@ -25,6 +25,6 @@ sudo cp haxip.sh /usr/local/bin/haxip
 copy the last ip detected to the clipboard and display the following information ip, code, country, city and timestamp
 
 ```sh
-network_interface=$(ip route | awk "/default/ { print \$5 }")
+network_interface=$(ip route | awk '/default/ { print $5 }')
 sudo haxip -fCI $network_interface
 ```
