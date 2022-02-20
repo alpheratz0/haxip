@@ -16,8 +16,8 @@ to use haxip you need the following programs installed
 ```sh
 git clone https://github.com/alpheratz0/haxip.git
 cd haxip
-chmod +x ./haxip.sh
-sudo cp haxip.sh /usr/local/bin/haxip
+chmod +x ./haxip
+sudo cp haxip /usr/local/bin/haxip
 ```
 
 ## example
