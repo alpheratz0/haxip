@@ -4,7 +4,7 @@ count=-1
 keeplog=-1
 network_interface=''
 opt_full=false
-opt_noheadings=false
+opt_headings=true
 opt_copy=false
 
 main() {
@@ -22,7 +22,7 @@ main() {
 			-c | --count ) count="$2"; shift 2 ;;
 			-I | --iface ) network_interface="$2"; shift 2 ;;
 			-f | --full ) opt_full=true; shift 1 ;;
-			-n | --noheadings ) opt_noheadings=true; shift 1 ;;
+			-n | --noheadings ) opt_headings=false; shift 1 ;;
 			-C | --copy ) opt_copy=true; shift 1 ;;
 			-h | --help ) show_help; exit 1 ;; 
 			-- ) shift; break ;;
@@ -30,18 +30,33 @@ main() {
 		esac
 	done
 
-	[ "$(id -u)" -ne 0 ] && die 'you must be root to execute this command'
-	[ "$keeplog" -eq "$keeplog" ] 2>/dev/null || die 'keeplog must be a number'
-	[ "$keeplog" -lt -1 ] && die 'keeplog must be equal or greater than -1'
-	[ "$count" -eq "$count" ] 2>/dev/null || die 'count must be a number'
-	[ "$count" -eq 0 ] && die 'count must be -1 or a positive integer'
-	[ "$count" -lt -1 ] && die 'count must be -1 or a positive integer'
-	[ -z "$network_interface" ] && die 'you must specify an interface'
-	ip addr show "$network_interface" 2>/dev/null>&2 || die 'network interface does not exist'
+	[ "$(id -u)" -ne 0 ] &&
+		die 'you must be root to execute this command'
+
+	[ "$keeplog" -eq "$keeplog" ] 2>/dev/null ||
+		die 'keeplog must be a number'
+
+	[ "$keeplog" -lt -1 ] &&
+		die 'keeplog must be equal or greater than -1'
+
+	[ "$count" -eq "$count" ] 2>/dev/null ||
+		die 'count must be a number'
+
+	[ "$count" -eq 0 ] &&
+		die 'count must be -1 or a positive integer'
+
+	[ "$count" -lt -1 ] &&
+		die 'count must be -1 or a positive integer'
+
+	[ -z "$network_interface" ] &&
+		die 'you must specify an interface'
+
+	ip addr show "$network_interface" 2>/dev/null>&2 ||
+		die 'network interface does not exist'
 
 	trap hinterrupt INT
 
-	if ! $opt_noheadings; then
+	if $opt_headings; then
 		if $opt_full; then
 			show_full_header
 		else
@@ -52,8 +67,11 @@ main() {
 	pending=$count
 
 	while [ "$pending" -ne 0 ]; do
-		[ "$pending" -ne -1 ] && pending=$((pending-1))
+		[ "$pending" -ne -1 ] &&
+			pending=$((pending-1))
+
 		ip=$(capture_unique)
+
 		if $opt_full; then
 			show_full_info "$ip"
 		else
@@ -86,7 +104,9 @@ die() {
 }
 
 hinterrupt() {
-	[ -f "$captured_data_location" ] && rm "$captured_data_location"
+	[ -f "$captured_data_location" ] &&
+		rm "$captured_data_location"
+
 	exit 1
 }
 
@@ -100,11 +120,32 @@ regexfmt() {
 }
 
 capture() {
-	ipv4s="$(ip -4 addr show "$network_interface" | grep -Eo 'inet (([0-9]+)\.){3}[0-9]+' | cut -d' ' -f2 | regexfmt)"
-	ipv6s="$(ip -6 addr show "$network_interface" | grep -Eo 'inet6 ([a-f0-9]+:){7}[a-f0-9]+' | cut -d' ' -f2 | regexfmt)"
+	ipv4s=$(
+		ip -4 addr show "$network_interface" |
+		grep -Eo 'inet (([0-9]+)\.){3}[0-9]+' |
+		cut -d' ' -f2 |
+		regexfmt
+	)
+
+	ipv6s=$(
+		ip -6 addr show "$network_interface" |
+		grep -Eo 'inet6 ([a-f0-9]+:){7}[a-f0-9]+' |
+		cut -d' ' -f2 |
+		regexfmt
+	)
 
 	while [ -z "$captured" ] ; do
-		captured="$(tshark -i "$network_interface" -e ipv6.src -e ipv6.dst -e ip.src -e ip.dst -Tfields -Y 'dtls' -c1 2>/dev/null | tr '\t' '\n')"
+		captured=$(
+			tshark -i "$network_interface" \
+				   -e ipv6.src \
+				   -e ipv6.dst \
+				   -e ip.src \
+				   -e ip.dst \
+				   -Tfields \
+				   -Y 'dtls' \
+				   -c1 2>/dev/null |
+			tr '\t' '\n'
+		)
 	done
 
 	echo "$captured" | grep -E -ve "(^$)|${ipv4s}|${ipv6s}"
