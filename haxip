@@ -30,14 +30,14 @@ main() {
 		esac
 	done
 
-	[ "$(id -u)" -ne 0 ] && err 'you must be root to execute this command'
-	[ "$KEEPLOG" -eq "$KEEPLOG" ] 2>/dev/null || err 'keeplog must be a number'
-	[ "$KEEPLOG" -lt -1 ] && err 'keeplog must be equal or greater than -1'
-	[ "$COUNT" -eq "$COUNT" ] 2>/dev/null || err 'count must be a number'
-	[ "$COUNT" -eq 0 ] && err 'count must be -1 or a positive integer'
-	[ "$COUNT" -lt -1 ] && err 'count must be -1 or a positive integer'
-	[ -z "$IFACE" ] && err 'you must specify an interface'
-	ip addr show "$IFACE" 2>/dev/null>&2 || err 'network interface does not exist'
+	[ "$(id -u)" -ne 0 ] && die 'you must be root to execute this command'
+	[ "$KEEPLOG" -eq "$KEEPLOG" ] 2>/dev/null || die 'keeplog must be a number'
+	[ "$KEEPLOG" -lt -1 ] && die 'keeplog must be equal or greater than -1'
+	[ "$COUNT" -eq "$COUNT" ] 2>/dev/null || die 'count must be a number'
+	[ "$COUNT" -eq 0 ] && die 'count must be -1 or a positive integer'
+	[ "$COUNT" -lt -1 ] && die 'count must be -1 or a positive integer'
+	[ -z "$IFACE" ] && die 'you must specify an interface'
+	ip addr show "$IFACE" 2>/dev/null>&2 || die 'network interface does not exist'
 
 	trap hinterrupt INT
 
@@ -80,8 +80,8 @@ show_help() {
 	echo '     -h | --help                    display this message and exit'
 }
 
-err() {
-	printf "haxip: error: %s\n" "$1" >&2
+die() {
+	printf "haxip: %s\n" "$1" >&2
 	exit 1
 }
 
