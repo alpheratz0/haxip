@@ -17,4 +17,3 @@ usage
 =====
 $ network_interface=$(ip route | awk '/default/ { print $5 }')
 $ sudo haxip -fCI $network_interface
-
