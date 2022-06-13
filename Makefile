@@ -1,8 +1,8 @@
 install:
-	@sudo chmod 775 haxip
-	@sudo cp haxip /usr/local/bin/haxip
+	@cp haxip /usr/local/bin/haxip
+	@chmod 775 /usr/local/bin/haxip
 
 uninstall:
-	@sudo rm -f /usr/local/bin/haxip
+	@rm -f /usr/local/bin/haxip
 
 .PHONY: install uninstall
