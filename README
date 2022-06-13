@@ -11,9 +11,9 @@ dependencies
 
 install
 =======
-$ sudo make install
+# make install
 
 usage
 =====
 $ network_interface=$(ip route | awk '/default/ { print $5 }')
-$ sudo haxip -fCI $network_interface
+# haxip -fCI $network_interface
