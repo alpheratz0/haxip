@@ -1,6 +1,6 @@
 haxip
 =====
-shell script that shows you information about every player that joins your haxball room
+gather information about players who join your haxball servers
 
 dependencies
 ============
@@ -12,8 +12,3 @@ dependencies
 install
 =======
 # make install
-
-usage
-=====
-$ network_interface=$(ip route | awk '/default/ { print $5 }')
-# haxip -fCI $network_interface
