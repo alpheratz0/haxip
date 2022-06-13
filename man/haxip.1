@@ -1,0 +1,50 @@
+.TH HAXIP 1 "June 12, 2022"
+.SH NAME
+haxip \- gather information about players who join your haxball servers.
+.SH SYNOPSIS
+\fBhaxip \fP [ -Cfhn ] [ -k keeplog ] [ -c count ] [ -I interface ]
+.SH OPTIONS
+.TP
+\fB\-C\fR, \fB\-\-copy\fR
+copy the last ip to the clipboard
+.TP
+\fB\-f\fR, \fB\-\-full\fR
+display ip, geolocation and timestamp
+.TP
+\fB\-h\fR, \fB\-\-help\fR
+show the help message and exit
+.TP
+\fB\-n\fR, \fB\-\-noheadings\fR
+do not display column headings
+.TP
+\fB\-k\fR, \fB\-\-keeplog\fR
+discard ips included in the set of the last N ips logged
+.TP
+\fB\-c\fR, \fB\-\-count\fR
+stop after displaying N entries
+.TP
+\fB\-I\fR, \fB\-\-iface\fR
+set which network interface to sniff on
+.SH EXAMPLES
+.TP
+\fBdisplay full information & copy ip of last player/room\fR
+haxip -fCI $(ip route | awk '/default/ { print $5 }')
+.SH EXIT STATUS
+.TP
+\fB0\fR
+the program terminated successfully
+.TP
+\fB1\fR
+an error occurred
+.SH AUTHOR
+Written by alpheratz0.
+.SH COPYRIGHT
+Copyright \(co 2022 <alpheratz99@protonmail.com>
+.br
+License GPLv2.0: GNU GPL version 2.0 <https://gnu.org/licenses/old-licenses/gpl-2.0.en.html>.
+.br
+This is free software: you are free to change and redistribute it.
+.br
+There is NO WARRANTY, to the extent permitted by law.
+.SH BUGS
+https://github.com/alpheratz0/haxip/issues
