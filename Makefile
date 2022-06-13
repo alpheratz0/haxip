@@ -1,5 +1,5 @@
 install:
-	@cp haxip /usr/local/bin/haxip
+	@cp src/haxip /usr/local/bin/haxip
 	@chmod 775 /usr/local/bin/haxip
 
 uninstall:
