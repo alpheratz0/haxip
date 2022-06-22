@@ -89,15 +89,15 @@ main()
 
 show_help()
 {
-	echo Usage: haxip [ -fnCh ] [ -k keeplog ] [ -c count ] [ -I interface ]
+	echo Usage: haxip [ -Cfhn ] [ -c COUNT ] [ -I IFACE ] [ -k KEEPLOG ]
 	echo Options are:
-	echo '     -k | --keeplog                 discard ips included in the set of the last N ips logged'
+	echo '     -C | --copy                    copy the last ip to the clipboard'
+	echo '     -f | --full                    display ip, geolocation and timestamp'
+	echo '     -h | --help                    display this message and exit'
+	echo '     -n | --noheadings              do not display column headings'
 	echo '     -c | --count                   stop after displaying N entries'
 	echo '     -I | --iface                   set which network interface to sniff on'
-	echo '     -f | --full                    display ip, geolocation and timestamp'
-	echo '     -n | --noheadings              do not display column headings'
-	echo '     -C | --copy                    copy the last ip to the clipboard'
-	echo '     -h | --help                    display this message and exit'
+	echo '     -k | --keeplog                 discard ips included in the set of the last N ips logged'
 }
 
 die()

@@ -1,8 +1,8 @@
-.TH HAXIP 1 "June 12, 2022"
+.TH HAXIP 1 "June 22, 2022"
 .SH NAME
 haxip \- gather information about players who join your haxball servers.
 .SH SYNOPSIS
-\fBhaxip \fP [ -Cfhn ] [ -k keeplog ] [ -c count ] [ -I interface ]
+\fBhaxip\fP [ -Cfhn ] [ -c COUNT ] [ -I IFACE ] [ -k KEEPLOG ]
 .SH OPTIONS
 .TP
 \fB\-C\fR, \fB\-\-copy\fR
@@ -17,14 +17,14 @@ show the help message and exit
 \fB\-n\fR, \fB\-\-noheadings\fR
 do not display column headings
 .TP
-\fB\-k\fR, \fB\-\-keeplog\fR
-discard ips included in the set of the last N ips logged
-.TP
 \fB\-c\fR, \fB\-\-count\fR
 stop after displaying N entries
 .TP
 \fB\-I\fR, \fB\-\-iface\fR
 set which network interface to sniff on
+.TP
+\fB\-k\fR, \fB\-\-keeplog\fR
+discard ips included in the set of the last N ips logged
 .SH EXAMPLES
 .TP
 \fBdisplay full information & copy ip of last player/room\fR
