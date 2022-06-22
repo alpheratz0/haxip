@@ -1,10 +1,16 @@
+PREFIX = /usr/local
+MANPREFIX = ${PREFIX}/share/man
+
 install:
-	@cp man/haxip.1 /usr/local/man/man1/haxip.1
-	@cp src/haxip /usr/local/bin/haxip
-	@chmod 775 /usr/local/bin/haxip
+	@mkdir -p ${DESTDIR}${PREFIX}/bin
+	@cp -f src/haxip ${DESTDIR}${PREFIX}/bin
+	@chmod 755 ${DESTDIR}${PREFIX}/bin/haxip
+	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
+	@cp -f man/haxip.1 ${DESTDIR}${MANPREFIX}/man1
+	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/haxip.1
 
 uninstall:
-	@rm -f /usr/local/bin/haxip
-	@rm -f /usr/local/man/man1/haxip.1
+	@rm -f ${DESTDIR}${PREFIX}/bin/haxip
+	@rm -f ${DESTDIR}${MANPREFIX}/man1/haxip.1
 
 .PHONY: install uninstall
