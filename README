@@ -1,14 +1,14 @@
-haxip
-=====
-gather information about players who join your haxball servers
+]|~ haxip ~|[
 
-dependencies
-============
-* tshark
-* xclip
-* curl
-* jq
+Gather information about players who join your haxball servers.
 
-install
-=======
-# make install
+]|~ dependencies ~|[
+
+In order to run haxip you will need tshark, xclip, curl & jq.
+
+]|~ license ~|[
+
+This program is free software; you can redistribute it
+and/or modify it under the terms of the GNU General Public License
+version 2 as published by the Free Software Foundation.
+See LICENSE for more details.
