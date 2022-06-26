@@ -3,10 +3,10 @@ MANPREFIX = ${PREFIX}/share/man
 
 install:
 	@mkdir -p ${DESTDIR}${PREFIX}/bin
-	@cp -f src/haxip ${DESTDIR}${PREFIX}/bin
+	@cp -f haxip ${DESTDIR}${PREFIX}/bin
 	@chmod 755 ${DESTDIR}${PREFIX}/bin/haxip
 	@mkdir -p ${DESTDIR}${MANPREFIX}/man1
-	@cp -f man/haxip.1 ${DESTDIR}${MANPREFIX}/man1
+	@cp -f haxip.1 ${DESTDIR}${MANPREFIX}/man1
 	@chmod 644 ${DESTDIR}${MANPREFIX}/man1/haxip.1
 
 uninstall:
