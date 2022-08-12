@@ -9,7 +9,7 @@ opt_copy=false
 
 main()
 {
-	parsed_args=$(getopt -o c:I:fk:nCh -l count:,iface:,keeplog:,full,noheadings,copy,help -n 'haxip' -- "$@")
+	parsed_args=$(getopt -o c:I:fk:nCh -n 'haxip' -- "$@")
 	getopt_exit_code=$?
 	captured_data_location=$(mktemp)
 	
@@ -19,13 +19,13 @@ main()
 
 	while :; do
 		case "$1" in
-			-k | --keeplog ) keeplog="$2"; shift 2 ;;
-			-c | --count ) count="$2"; shift 2 ;;
-			-I | --iface ) network_interface="$2"; shift 2 ;;
-			-f | --full ) opt_full=true; shift 1 ;;
-			-n | --noheadings ) opt_headings=false; shift 1 ;;
-			-C | --copy ) opt_copy=true; shift 1 ;;
-			-h | --help ) show_help; exit 1 ;; 
+			-k ) keeplog="$2"; shift 2 ;;
+			-c ) count="$2"; shift 2 ;;
+			-I ) network_interface="$2"; shift 2 ;;
+			-f ) opt_full=true; shift 1 ;;
+			-n ) opt_headings=false; shift 1 ;;
+			-C ) opt_copy=true; shift 1 ;;
+			-h ) usage ;; 
 			-- ) shift; break ;;
 			* ) break ;;
 		esac
@@ -87,17 +87,10 @@ main()
 	[ -f "$captured_data_location" ] && rm "$captured_data_location"
 }
 
-show_help()
+usage()
 {
-	echo Usage: haxip [ -Cfhn ] [ -c COUNT ] [ -I IFACE ] [ -k KEEPLOG ]
-	echo Options are:
-	echo '     -C | --copy                    copy the last ip to the clipboard'
-	echo '     -f | --full                    display ip, geolocation and timestamp'
-	echo '     -h | --help                    display this message and exit'
-	echo '     -n | --noheadings              do not display column headings'
-	echo '     -c | --count                   stop after displaying N entries'
-	echo '     -I | --iface                   set which network interface to sniff on'
-	echo '     -k | --keeplog                 discard ips included in the set of the last N ips logged'
+	echo usage: haxip [-Cfhn] [-c count] [-I interface] [-k keeplog]
+	exit 0
 }
 
 die()
