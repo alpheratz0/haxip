@@ -1,8 +1,7 @@
 .POSIX:
 .PHONY: install uninstall default
 
-PREFIX    = /usr/local
-MANPREFIX = $(PREFIX)/share/man
+include config.mk
 
 default:
 	@true
