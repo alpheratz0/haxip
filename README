@@ -1,12 +1,8 @@
-]|~ haxip ~|[
+haxip is a utility that let's you gather information about
+players who join your haxball servers.
+For more information about it's usage check `man haxip`.
 
-Gather information about players who join your haxball servers.
-
-]|~ dependencies ~|[
-
-In order to run haxip you will need tshark, xclip, curl & jq.
-
-]|~ license ~|[
+This program requires tshark, xclip, curl and jq to be installed.
 
 This program is free software; you can redistribute it
 and/or modify it under the terms of the GNU General Public License
